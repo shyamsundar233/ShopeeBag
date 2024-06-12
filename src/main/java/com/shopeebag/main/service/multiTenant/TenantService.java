@@ -1,6 +1,6 @@
-package com.shopeebag.main.multiTenant.service;
+package com.shopeebag.main.service.multiTenant;
 
-import com.shopeebag.main.multiTenant.entity.Tenant;
+import com.shopeebag.main.entity.Tenant;
 
 public interface TenantService {
 

@@ -1,6 +1,6 @@
-package com.shopeebag.main.multiTenant.dao;
+package com.shopeebag.main.dao.multiTenant;
 
-import com.shopeebag.main.multiTenant.entity.Tenant;
+import com.shopeebag.main.entity.Tenant;
 
 public interface TenantDao {
 

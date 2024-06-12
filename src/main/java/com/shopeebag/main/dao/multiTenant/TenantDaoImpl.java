@@ -1,7 +1,7 @@
-package com.shopeebag.main.multiTenant.dao;
+package com.shopeebag.main.dao.multiTenant;
 
-import com.shopeebag.main.multiTenant.entity.Tenant;
-import com.shopeebag.main.multiTenant.repo.TenantRepo;
+import com.shopeebag.main.entity.Tenant;
+import com.shopeebag.main.repo.TenantRepo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

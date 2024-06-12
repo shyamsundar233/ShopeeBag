@@ -1,4 +1,4 @@
-package com.shopeebag.main.multiTenant.entity;
+package com.shopeebag.main.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
