@@ -45,4 +45,16 @@ public class TenantServiceImpl implements TenantService{
             }
         }
     }
+
+    @Override
+    public Tenant getNextTenant() {
+        return tenantDao.getNextTenant();
+    }
+
+    @Override
+    public void setTenantIsActive(Long tenantId) {
+        Tenant tenant = tenantDao.getTenant(tenantId);
+        tenant.setActive(true);
+        tenantDao.addTenant(tenant);
+    }
 }
