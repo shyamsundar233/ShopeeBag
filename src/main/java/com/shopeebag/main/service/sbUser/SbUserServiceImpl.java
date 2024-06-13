@@ -34,6 +34,7 @@ public class SbUserServiceImpl implements SbUserService {
             tenant = tenantService.getNextTenant();
             sbUser.setTenant(tenant);
         }
+        sbUser.setEnabled(true);
         sbUserDao.saveUser(sbUser);
         if(tenant != null){
             tenantService.setTenantIsActive(tenant.getTenantId());

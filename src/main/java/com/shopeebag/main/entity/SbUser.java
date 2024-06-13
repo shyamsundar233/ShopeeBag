@@ -17,6 +17,7 @@ public class SbUser {
 
     private String username;
 
+    @Setter
     private String password;
 
     private String firstname;
