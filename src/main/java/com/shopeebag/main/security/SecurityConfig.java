@@ -47,12 +47,10 @@ public class SecurityConfig {
     public UserDetailsManager userDetailsManager(DataSource dataSource) {
         JdbcUserDetailsManager jdbcUserDetailsManager = new JdbcUserDetailsManager(dataSource);
 
-        // Custom query to fetch user details from SbUser
         jdbcUserDetailsManager.setUsersByUsernameQuery(
                 "select username, password, enabled from sb_user where username=?"
         );
-
-        // Custom query to fetch user authorities from Role
+        
         jdbcUserDetailsManager.setAuthoritiesByUsernameQuery(
                 "select u.username, r.role_name as authority " +
                         "from sb_user u " +
