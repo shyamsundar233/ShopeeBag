@@ -27,4 +27,14 @@ public class TenantDaoImpl implements TenantDao{
         return tenantRepo.count();
     }
 
+    @Override
+    public Tenant getNextTenant() {
+        return tenantRepo.findFirstByIsActiveFalse();
+    }
+
+    @Override
+    public Tenant getTenant(Long id) {
+        return tenantRepo.findById(id).orElse(null);
+    }
+
 }

@@ -8,4 +8,8 @@ public interface TenantDao {
 
     public Long tenantCount();
 
+    public Tenant getNextTenant();
+
+    public Tenant getTenant(Long id);
+
 }
