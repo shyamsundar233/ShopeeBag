@@ -2,6 +2,7 @@ package com.shopeebag.main.controller;
 
 import com.shopeebag.main.entity.SbUser;
 import com.shopeebag.main.service.sbUser.SbUserService;
+import com.shopeebag.main.util.SbUserUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +27,11 @@ public class SbController {
 
     @GetMapping("/login")
     public String login() {
-        return "login/login-page";
+        if(SbUserUtil.currentUser == null){
+            return "login/login-page";
+        }else{
+            return "redirect:/sb";
+        }
     }
 
     @PostMapping("/register")

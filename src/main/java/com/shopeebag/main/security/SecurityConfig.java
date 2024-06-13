@@ -1,5 +1,6 @@
 package com.shopeebag.main.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
@@ -19,6 +20,12 @@ import javax.sql.DataSource;
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    private SbLoginSuccessHandler sbLoginSuccessHandler;
+
+    @Autowired
+    private SbLogoutSuccessHandler sbLogoutSuccessHandler;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
@@ -31,8 +38,13 @@ public class SecurityConfig {
                 )
                 .formLogin(login -> login
                         .loginPage("/login")
-                        .successHandler(new SbInitLoadData())
+                        .successHandler(sbLoginSuccessHandler)
                         .permitAll()
+                )
+                .logout((logout) -> logout
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessHandler(sbLogoutSuccessHandler)
+                        .logoutSuccessUrl("/login")
                 );
 
         return http.build();

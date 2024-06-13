@@ -6,4 +6,6 @@ public interface SbUserDao {
 
     public void saveUser(SbUser sbUser);
 
+    public SbUser getUserByUsername(String username);
+
 }

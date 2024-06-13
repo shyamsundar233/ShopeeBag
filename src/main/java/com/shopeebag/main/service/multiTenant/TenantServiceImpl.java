@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class TenantServiceImpl implements TenantService{
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(TenantServiceImpl.class);
+
     @Autowired
     private TenantDao tenantDao;
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(TenantServiceImpl.class);
 
     @Override
     public Tenant addTenant(Tenant tenant) {
@@ -56,5 +56,6 @@ public class TenantServiceImpl implements TenantService{
         Tenant tenant = tenantDao.getTenant(tenantId);
         tenant.setActive(true);
         tenantDao.addTenant(tenant);
+        LOGGER.info("Tenant {} has been set active", tenant.getTenantId());
     }
 }

@@ -24,6 +24,11 @@ public class SbUserDaoImpl implements SbUserDao{
         LOGGER.info("User {} saved", sbUser);
     }
 
+    @Override
+    public SbUser getUserByUsername(String username) {
+        return sbUserRepo.findByUsername(username);
+    }
+
     private String encryptPassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(password);
