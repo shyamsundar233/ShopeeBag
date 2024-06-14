@@ -17,6 +17,8 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {useState} from "react";
+import {Fade, Popover} from "@mui/material";
+import SbAppBarOptions from "./SbAppBarOptions";
 
 const optionsArr = ["Men", "Women", "Kids", "Home & Living", "Beauty", "Studio"]
 
@@ -63,10 +65,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 const SbAppBar = () => {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
-    const [optionsMenuAnchorEl, setOptionsMenuAnchorEl] = useState(false);
+    const [selOption, setSelOption] = useState(null);
+    const [popoverAnchorEl, setPopoverAnchorEl] = useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+    const isPopoverOpen = Boolean(popoverAnchorEl);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
@@ -83,6 +87,15 @@ const SbAppBar = () => {
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverOpen = (option, event) => {
+        setSelOption(option.toLowerCase());
+        setPopoverAnchorEl(event.currentTarget);
+    };
+
+    const handlePopoverClose = () => {
+        setPopoverAnchorEl(null);
     };
 
     const menuId = 'primary-search-account-menu';
@@ -105,6 +118,30 @@ const SbAppBar = () => {
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
         </Menu>
+    );
+
+    const renderPopoverOptions = (
+        <Popover
+            id="mouse-over-popover"
+            sx={{
+                pointerEvents: 'none',
+            }}
+            open={isPopoverOpen}
+            anchorEl={popoverAnchorEl}
+            anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'center',
+            }}
+            transformOrigin={{
+                vertical: 'top',
+                horizontal: 'center',
+            }}
+            onClose={handlePopoverClose}
+            disableRestoreFocus
+            TransitionComponent={Fade}
+        >
+            <SbAppBarOptions option={selOption}/>
+        </Popover>
     );
 
     const mobileMenuId = 'primary-search-account-menu-mobile';
@@ -163,17 +200,8 @@ const SbAppBar = () => {
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{backgroundColor: "white", color: "black", height: "80px", justifyContent: "center"}}>
                 <Toolbar>
-                    {/*<IconButton*/}
-                    {/*    size="large"*/}
-                    {/*    edge="start"*/}
-                    {/*    color="inherit"*/}
-                    {/*    aria-label="open drawer"*/}
-                    {/*    sx={{ mr: 2 }}*/}
-                    {/*>*/}
-                    {/*    <MenuIcon />*/}
-                    {/*</IconButton>*/}
                     <Typography
-                        variant="h6"
+                        variant="h5"
                         noWrap
                         component="div"
                         sx={{ display: { xs: 'none', sm: 'block' }, padding: "0px 20px 0px"}}
@@ -184,11 +212,13 @@ const SbAppBar = () => {
                     {optionsArr.map(option => {
                         return(
                             <Typography
-                                variant="body1"
+                                variant="subtitle2"
                                 noWrap
                                 component="div"
                                 sx={{ display: { xs: 'none', sm: 'block' }}}
                                 className="app-bar-options cursor-pointer"
+                                onMouseEnter={e => handlePopoverOpen(option, e)}
+                                onMouseLeave={handlePopoverClose}
                             >
                                 {option}
                             </Typography>
@@ -248,6 +278,7 @@ const SbAppBar = () => {
             </AppBar>
             {renderMobileMenu}
             {renderMenu}
+            {renderPopoverOptions}
         </Box>
     );
 }
