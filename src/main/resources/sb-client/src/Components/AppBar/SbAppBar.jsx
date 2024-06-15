@@ -90,8 +90,11 @@ const SbAppBar = () => {
     };
 
     const handlePopoverOpen = (option, event) => {
-        setSelOption(option.toLowerCase());
-        setPopoverAnchorEl(event.currentTarget);
+        if(option !== "Studio"){
+            option = option === "Home & Living" ? "home" : option;
+            setSelOption(option.toLowerCase());
+            setPopoverAnchorEl(event.currentTarget);
+        }
     };
 
     const handlePopoverClose = () => {
